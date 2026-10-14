@@ -1,0 +1,9 @@
+CORPORATE FINANCE & AUTONOMOUS AI POLICY HANDBOOK (v3.2)
+1. Ingestion Thresholds:
+   - Routine invoices under $5,000.00 USD may be ingested autonomously into the internal ERP.
+   - Any invoice exceeding $5,000.00 USD REQUIRES explicit human manager sign-off prior to submission.
+2. Verification Protocol:
+   - Every invoice entered into the ERP must be immediately verified via ERP lookup.
+   - The verified amount and due date must match the source document with 100% precision.
+3. Vendor Matching:
+   - If multiple matching vendors are detected or vendor name is ambiguous, the worker must seek user clarification.

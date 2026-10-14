@@ -1,0 +1,8 @@
+INVOICE
+Vendor: Nexus Analytics LLC
+Invoice Number: NEX-3392
+Issue Date: 2024-11-05
+Due Date: 2024-12-05
+Total Amount: $2,100.00
+Currency: USD
+Description: BI Dashboard SaaS Subscription Q4

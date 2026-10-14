@@ -1,0 +1,17 @@
+INVOICE
+Vendor: Acme Cloud Corp
+Invoice Number: INV-2024-9102
+Issue Date: 2024-11-04
+Due Date: 2024-12-04
+PO Reference: PO-88319
+Billed To: Internal Corp Finance Dept
+
+Line Items:
+1. Enterprise Cloud Cluster 64-Core (Monthly) - $3,500.00
+2. Managed Redis & Storage Tier - $850.00
+3. 24/7 Premium SLA Support - $500.00
+
+Total Amount: $4,850.00
+Payment Terms: Net 30
+Remit to: banking@acmecloud.example.com
+Status: UNPAID

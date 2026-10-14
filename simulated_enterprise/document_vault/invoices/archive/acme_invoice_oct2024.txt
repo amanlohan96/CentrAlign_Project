@@ -1,0 +1,8 @@
+INVOICE
+Vendor: Acme Cloud Corp
+Invoice Number: INV-2024-8140
+Issue Date: 2024-10-02
+Due Date: 2024-11-02
+PO Reference: PO-81204
+Total Amount: $3,200.00
+Status: PAID

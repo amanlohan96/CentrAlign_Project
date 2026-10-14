@@ -1,0 +1,10 @@
+INVOICE - CAPITAL EXPENDITURE
+Vendor: Global CyberTech Hardware Inc
+Invoice Number: GCT-2024-9901
+Issue Date: 2024-11-08
+Due Date: 2024-11-28
+Total Amount: $18,500.00
+Currency: USD
+Description: 5x High-Performance GPU Workstations for AI Research Lab
+Payment Terms: Net 20
+Policy Warning: Invoices over $5,000.00 require Tier-2 Manager Approval before ingestion.

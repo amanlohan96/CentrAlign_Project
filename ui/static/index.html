@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Autonomous AI Task Worker | Mission Control</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="top-nav">
+      <div class="nav-brand">
+        <div class="logo-badge">AI</div>
+        <div>
+          <h1>Autonomous AI Task Worker</h1>
+          <p class="subtitle">Autonomous Enterprise Execution Engine &bull; ReAct Loop &bull; Verification &bull; HITL Guardrails</p>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button id="btnReset" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+          Reset Sandbox
+        </button>
+        <span class="status-pill status-ready" id="systemStatusPill">Ready</span>
+      </div>
+    </header>
+
+    <!-- Main Workspace Grid -->
+    <main class="dashboard-grid">
+      <!-- Left Column: Task Input & Presets -->
+      <section class="panel command-panel">
+        <div class="panel-header">
+          <h2>Natural Language Task</h2>
+          <span class="badge-tag">Input Objective</span>
+        </div>
+        <div class="panel-body">
+          <textarea id="taskInput" rows="3" placeholder="Enter high-level natural language instruction... (e.g. Find the latest invoice from Company X, extract the amount and due date, enter it into our internal system, and tell me once it is done.)">Find the latest invoice from Company X, extract the amount and due date, enter it into our internal system, and tell me once it is done.</textarea>
+          
+          <div class="scenario-chips">
+            <span class="chips-label">Demo Scenarios:</span>
+            <button class="chip" data-task="Find the latest invoice from Company X, extract the amount and due date, enter it into our internal system, and tell me once it is done.">
+              &bull; Archetypal (Company X Ingestion)
+            </button>
+            <button class="chip" data-task="Ingest high value GPU workstation invoice from Global CyberTech into ERP and alert finance.">
+              &bull; High-Value Policy ($18.5k HITL Trigger)
+            </button>
+            <button class="chip" data-task="Find the latest invoice from Apex, extract the amount and due date, enter it into our internal system, and tell me once it is done.">
+              &bull; Structured JSON Ingestion (Apex)
+            </button>
+          </div>
+
+          <div class="guardrail-settings">
+            <label for="guardrailLimit">HITL Policy Threshold ($):</label>
+            <input type="number" id="guardrailLimit" value="5000" step="500" min="1000">
+          </div>
+
+          <div class="action-bar">
+            <button id="btnExecuteTask" class="btn btn-primary">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Execute Autonomous Worker
+            </button>
+          </div>
+        </div>
+
+        <!-- Working Memory Inspector -->
+        <div class="panel-header sub-header">
+          <h2>Agent Working Memory</h2>
+          <span class="badge-tag">Blackboard State</span>
+        </div>
+        <div class="panel-body memory-box">
+          <div class="memory-section">
+            <h4>Discovered Entities</h4>
+            <pre id="memoryEntities">{}</pre>
+          </div>
+          <div class="memory-section">
+            <h4>Live Scratchpad Observations</h4>
+            <div id="memoryScratchpad" class="scratchpad-log"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Center Column: Plan Execution DAG & Live Trace -->
+      <section class="panel execution-panel">
+        <div class="panel-header">
+          <h2>Execution DAG & Reasoning Loop</h2>
+          <span class="badge-tag" id="currentTaskStatus">Idle</span>
+        </div>
+        <div class="panel-body">
+          <div class="plan-steps-container" id="stepsContainer">
+            <div class="empty-state">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
+              <p>Ready to plan and execute tasks autonomously. Click "Execute Autonomous Worker" above.</p>
+            </div>
+          </div>
+
+          <!-- Outcome Verification Certificate -->
+          <div id="verificationCertificate" class="verification-card hidden">
+            <div class="cert-header">
+              <div class="cert-icon">&check;</div>
+              <div>
+                <h3>Independent Outcome Verification</h3>
+                <p id="certSummary">All checks passed against Internal ERP ledger.</p>
+              </div>
+            </div>
+            <div class="cert-checks" id="certChecksList"></div>
+          </div>
+
+          <!-- Completion Evidence Dossier -->
+          <div id="evidenceDossier" class="evidence-box hidden">
+            <h3>Completion Summary & Evidence</h3>
+            <p id="evidenceSummaryText" class="evidence-text"></p>
+            <div class="evidence-meta" id="evidenceMeta"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Simulated Enterprise ERP & Live Ledger -->
+      <section class="panel erp-panel">
+        <div class="panel-header">
+          <h2>Internal Enterprise ERP System</h2>
+          <span class="badge-tag">Target System</span>
+        </div>
+        <div class="panel-body">
+          <div class="portal-badge">
+            <span class="pulse-indicator"></span>
+            <strong>Accounts Payable Ledger (v4.2)</strong>
+          </div>
+          <div class="table-wrapper">
+            <table class="data-table" id="erpTable">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Vendor</th>
+                  <th>Invoice #</th>
+                  <th>Amount</th>
+                  <th>Due Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="erpTableBody">
+                <tr><td colspan="6" class="loading-td">Loading records...</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ERP Audit Trail -->
+          <div class="audit-trail-container">
+            <h4>Target Ledger Audit Log</h4>
+            <div class="audit-log" id="erpAuditLog"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Modal: Human In The Loop (HITL) Approval Required -->
+    <div class="modal-overlay hidden" id="approvalModal">
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="warning-icon">&excl;</div>
+          <div>
+            <h3>Human-In-The-Loop Approval Required</h3>
+            <p id="modalPolicyTag" class="modal-policy">POLICY TRIGGERED</p>
+          </div>
+        </div>
+        <div class="modal-body">
+          <p id="modalReasonText" class="modal-reason"></p>
+          <div class="modal-details-box">
+            <strong>Proposed Action:</strong>
+            <p id="modalProposedAction"></p>
+            <pre id="modalContextJson"></pre>
+          </div>
+          <div class="input-group">
+            <label for="approvalNotes">Reviewer Notes / Authorization Code:</label>
+            <input type="text" id="approvalNotes" placeholder="e.g. Approved by Finance Director for Q4 budget.">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button id="btnReject" class="btn btn-danger">Reject & Abort</button>
+          <button id="btnApprove" class="btn btn-success">Authorize & Proceed</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
